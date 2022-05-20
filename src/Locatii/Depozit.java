@@ -11,16 +11,17 @@ public class Depozit extends Locatie{
     private String numeDepozit;
     private Integer suprafata; // marimea depozitului in metri patrati
     private Angajat managerDepozit;
-    private Vector<Categorie> listaCategoriiDepozitate; // categoriile de produse pe care pot fii stocate in depozit
-    private HashMap<Produs, Integer> listaCantitati; // produsele si cantitatea disponibila
-    private Boolean tipDepozit; // FALSE daca este depozit pentru stocarea produselor sau TRUE daca este depozit de distributie
+    private HashMap<String, Categorie> listaCategoriiDepozitate; // categoriile de produse pe care pot fii stocate in depozit
+    private HashMap<String, Integer> listaCantitati; // produsele si cantitatea disponibila
+    private String tipDepozit; // FALSE daca este depozit pentru stocarea produselor sau TRUE daca este depozit de distributie
 
-    public Depozit(String tara, String judet, String localitate, String strada, String numar, String numeDepozit, Integer suprafata, Angajat managerDepozit, Vector<Categorie> listaCategoriiDepozitate, Boolean tipDepozit) {
+    public Depozit(String tara, String judet, String localitate, String strada, String numar, String numeDepozit, Integer suprafata, Angajat managerDepozit, HashMap<String, Categorie> listaCategoriiDepozitate, HashMap<String, Integer> listaCantitati, String tipDepozit) {
         super(tara, judet, localitate, strada, numar);
         this.numeDepozit = numeDepozit;
         this.suprafata = suprafata;
         this.managerDepozit = managerDepozit;
         this.listaCategoriiDepozitate = listaCategoriiDepozitate;
+        this.listaCantitati = listaCantitati;
         this.tipDepozit = tipDepozit;
     }
 
@@ -51,19 +52,27 @@ public class Depozit extends Locatie{
         this.managerDepozit = managerDepozit;
     }
 
-    public Vector<Categorie> getListaCategoriiDepozitate() {
+    public HashMap<String, Categorie> getListaCategoriiDepozitate() {
         return listaCategoriiDepozitate;
     }
 
-    public void setListaCategoriiDepozitate(Vector<Categorie> listaCategoriiDepozitate) {
+    public void setListaCategoriiDepozitate(HashMap<String, Categorie> listaCategoriiDepozitate) {
         this.listaCategoriiDepozitate = listaCategoriiDepozitate;
     }
 
-    public Boolean getTipDepozit() {
+    public HashMap<String, Integer> getListaCantitati() {
+        return listaCantitati;
+    }
+
+    public void setListaCantitati(HashMap<String, Integer> listaCantitati) {
+        this.listaCantitati = listaCantitati;
+    }
+
+    public String getTipDepozit() {
         return tipDepozit;
     }
 
-    public void setTipDepozit(Boolean tipDepozit) {
+    public void setTipDepozit(String tipDepozit) {
         this.tipDepozit = tipDepozit;
     }
 
@@ -74,7 +83,8 @@ public class Depozit extends Locatie{
                 ", suprafata=" + suprafata +
                 ", managerDepozit=" + managerDepozit +
                 ", listaCategoriiDepozitate=" + listaCategoriiDepozitate +
-                ", tipDepozit=" + tipDepozit +
+                ", listaCantitati=" + listaCantitati +
+                ", tipDepozit='" + tipDepozit + '\'' +
                 ", tara='" + tara + '\'' +
                 ", judet='" + judet + '\'' +
                 ", localitate='" + localitate + '\'' +

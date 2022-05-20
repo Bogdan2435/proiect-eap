@@ -9,16 +9,14 @@ import java.util.Vector;
 public class Magazin extends Locatie{
 
     private String numeMagazin;
-    private Vector<Depozit> listaDepozite; // Depozitele care tin de respectivul magazin.
+    private HashMap<String, Depozit> listaDepozite; // Depozitele care tin de respectivul magazin.
     private Angajat managerMagazin; // Orice magazin are un manager.
-    private HashMap<Produs, int> listaProduse; // Produsele pe care le vinde fiecare magazin si pretul la care le vand
 
-    public Magazin(String tara, String judet, String localitate, String strada, String numar, String numeMagazin, Vector<Depozit> listaDepozite, Angajat managerMagazin, HashMap<Produs, int> listaProduse) {
+    public Magazin(String tara, String judet, String localitate, String strada, String numar, String numeMagazin, HashMap<String, Depozit> listaDepozite, Angajat managerMagazin) {
         super(tara, judet, localitate, strada, numar);
         this.numeMagazin = numeMagazin;
         this.listaDepozite = listaDepozite;
         this.managerMagazin = managerMagazin;
-        this.listaProduse = listaProduse;
     }
 
     public Magazin() {
@@ -32,11 +30,11 @@ public class Magazin extends Locatie{
         this.numeMagazin = numeMagazin;
     }
 
-    public Vector<Depozit> getListaDepozite() {
+    public HashMap<String, Depozit> getListaDepozite() {
         return listaDepozite;
     }
 
-    public void setListaDepozite(Vector<Depozit> listaDepozite) {
+    public void setListaDepozite(HashMap<String, Depozit> listaDepozite) {
         this.listaDepozite = listaDepozite;
     }
 
@@ -46,14 +44,6 @@ public class Magazin extends Locatie{
 
     public void setManagerMagazin(Angajat managerMagazin) {
         this.managerMagazin = managerMagazin;
-    }
-
-    public HashMap<Produs, int> getListaProduse() {
-        return listaProduse;
-    }
-
-    public void setListaProduse(HashMap<Produs, int> listaProduse) {
-        this.listaProduse = listaProduse;
     }
 
     @Override
@@ -67,7 +57,6 @@ public class Magazin extends Locatie{
                 ", numeMagazin='" + numeMagazin + '\'' +
                 ", listaDepozite=" + listaDepozite +
                 ", managerMagazin=" + managerMagazin +
-                ", listaProduse=" + listaProduse +
                 '}';
     }
 }

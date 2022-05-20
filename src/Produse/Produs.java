@@ -1,10 +1,11 @@
 package Produse;
 
-public class Produs {
+public class Produs extends Categorie{
     private String denumireProdus;
     private int pret;
 
-    public Produs(String denumireProdus, int pret) {
+    public Produs(String denumireCategorie, String descriere, String denumireProdus, int pret) {
+        super(denumireCategorie, descriere);
         this.denumireProdus = denumireProdus;
         this.pret = pret;
     }
@@ -31,7 +32,8 @@ public class Produs {
     @Override
     public String toString() {
         return "Produs{" +
-                "denumireProdus='" + denumireProdus + '\'' +
+                "Categorie='" + denumireCategorie + '\'' +
+                ", denumireProdus='" + denumireProdus + '\'' +
                 ", pret=" + pret +
                 '}';
     }

@@ -26,8 +26,15 @@ public class Meniu {
             opt = scanner.nextInt();
             switch (opt):{
                 case 1: {
-                    String Clasa;
-                    System.out.println("Pe ");
+                    String clasa;
+                    System.out.println("Pe care dintre clase vrei sa lucrezi?");
+                    System.out.println("Locatie | Furnizor | Depozit | Magazin | Persoane | Angajati | Categorii | Produse");
+                    clasa = scanner.next();
+                    switch (clasa) {
+                        case "Locatie": {
+
+                        }
+                    }
                 }
             }
         }
