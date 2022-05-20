@@ -20,6 +20,8 @@ public class Main {
         Vector<Furnizor> furnizori = new Vector<Furnizor>();
         Vector<Magazin> magazine = new Vector<Magazin>();
 
-
+        Servicii serv = new Servicii();
+        Meniu meniu = new Meniu();
+        meniu.main(locatii, persoane, angajati, categorii, produse, depozite, furnizori, magazine);
     }
 }

@@ -196,7 +196,7 @@ public class Servicii {
         categorii.remove(pozitie);
     }
 
-    public static Categorie modificarePersoana(Categorie categorie){
+    public static Categorie modificareCategorie(Categorie categorie){
         Scanner scanner=new Scanner(System.in);
         System.out.println("Modifica denumire Categoriei: ");
         String c;
