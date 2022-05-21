@@ -46,6 +46,8 @@ public class Magazin extends Locatie{
         this.managerMagazin = managerMagazin;
     }
 
+
+
     @Override
     public String toString() {
         return "Magazin{" +

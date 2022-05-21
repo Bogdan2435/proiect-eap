@@ -569,4 +569,60 @@ public class Servicii {
             }
         }
     }
+
+    public static void cautareDepoziteMagazin(Vector<Magazin> mag){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Depozitele carui magazin doresti sa le vezi?");
+        int nr_mag = scanner.nextInt();
+        int i = 1;
+        for(Magazin m : mag) {
+            if(nr_mag == i)
+                System.out.println(m.getListaDepozite());
+            i = i + 1;
+        }
+    }
+
+    public static void stocPiesaMagazin(Vector<Magazin> mag){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Stocul caruiei piese vrei sa il calculezi?");
+        String p = scanner.nextLine();
+
+        System.out.println("Stocul pentru care magazin doresti sa il vezi?");
+        int nr_mag = scanner.nextInt();
+
+        int stoc = 0;
+
+        int i = 1;
+        for(Magazin m : mag) {
+            if(nr_mag == i){
+                for(Depozit d : m.getListaDepozite().values()){
+                    for(String piesa : d.getListaCantitati().keySet()) {
+                        if(piesa.equals(p)) {
+                            stoc = stoc + d.getListaCantitati().get(p);
+                        }
+                    }
+                }
+            }
+            i = i + 1;
+        }
+        System.out.println(stoc);
+    }
+
+    public static void stocTotalDepozit(Vector<Depozit> dep){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Stocul total al carui depozit vrei sa il vezi?");
+        int nr_dep = scanner.nextInt();
+        int cant = 0;
+        int i = 1;
+        for(Depozit d : dep){
+            if(nr_dep == i){
+                for(Integer c : d.getListaCantitati().values()){
+                    cant = cant + c;
+                }
+            }
+            i = i + 1;
+        }
+        System.out.println(cant);
+    }
 }

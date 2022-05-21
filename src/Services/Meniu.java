@@ -18,8 +18,8 @@ public class Meniu {
         System.out.println("\n4. Stergere");
         System.out.println("\n5. Afisare depozit dintr-o locatie (filtrare dupa tara/oras/localitate");
         System.out.println("\n6. Afisare depozitele unui magazin");
-        System.out.println("\n7. Calculare stoc piesa dintr-un depozit");
-        System.out.println("\n8. Calculare nr total de produse in stoc dintr-un depozit");
+        System.out.println("\n7. Calculare stoc piesa dintr-un magazin");
+        System.out.println("\n8. Calculare cantitate totala de produse in stoc dintr-un depozit");
         System.out.println("\n9. Iesire");
         int opt=0;
         while(opt >= 0 && opt < 10){
@@ -282,10 +282,23 @@ public class Meniu {
                     Servicii.cautareDepozit(dep);
                     break;
                 }
-
+                case 6: {
+                    Servicii.cautareDepoziteMagazin(mag);
+                    break;
+                }
+                case 7: {
+                    Servicii.stocPiesaMagazin(mag);
+                    break;
+                }
+                case 8: {
+                    Servicii.stocTotalDepozit(dep);
+                    break;
+                }
+                case 9: {
+                    System.exit(0);
+                }
             }
         }
-
     }
 
 }
