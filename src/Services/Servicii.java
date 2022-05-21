@@ -521,4 +521,52 @@ public class Servicii {
 
         return magazin;
     }
+
+    public static void cautareDepozit(Vector<Depozit> dep){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Alege tara dupa care vrei sa filtrezi:");
+        String tara = scanner.nextLine();
+        System.out.println("Vrei sa mai adaugi si alte filtre cautarii? (Da | Nu)");
+        String s = scanner.nextLine();
+        if (s.equals("Da")){
+            System.out.println("Alege ce filtre vrei sa mai adaugi cautarii? ( Judet | Localitate)");
+            String filtru = scanner.nextLine();
+            switch (filtru) {
+                case "Judet": {
+                    System.out.println("Alege judetul dupa care vrei sa filtrezi:");
+                    String judet = scanner.nextLine();
+                    System.out.println("Vrei sa filtrezi cautarea si dupa localitate?)");
+                    s = scanner.nextLine();
+                    if (s.equals("Da")) {
+                        System.out.println("Alege localitatea dupa care vrei sa filtrezi:");
+                        String localitate = scanner.nextLine();
+                        for (Depozit dp : dep) { // parcurg toate depozitele existente
+                            if (tara.equals(dp.getTara()) & judet.equals(dp.getJudet()) & localitate.equals(dp.getLocalitate()))
+                                afisareDepozit(dp);
+                        }
+                    } else {
+                        for (Depozit dp : dep) { // parcurg toate depozitele existente
+                            if (tara.equals(dp.getTara()) & judet.equals(dp.getJudet()))
+                                afisareDepozit(dp);
+                        }
+                    }
+                    break;
+                }
+                case "Localitate":{
+                    System.out.println("Alege localitatea dupa care vrei sa filtrezi:");
+                    String localitate = scanner.nextLine();
+                    for (Depozit dp : dep) { // parcurg toate depozitele existente
+                        if (tara.equals(dp.getTara()) & localitate.equals(dp.getLocalitate()))
+                            afisareDepozit(dp);
+                    }
+                    break;
+                }
+            }
+        } else {
+            for (Depozit dp : dep) { // parcurg toate depozitele existente
+                if (tara.equals(dp.getTara()))
+                    afisareDepozit(dp);
+            }
+        }
+    }
 }

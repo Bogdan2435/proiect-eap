@@ -16,8 +16,8 @@ public class Meniu {
         System.out.println("\n2. Afisare");
         System.out.println("\n3. Modificare");
         System.out.println("\n4. Stergere");
-        System.out.println("\n5. Afisare depozitele unui magazin");
-        System.out.println("\n6. Afisare furnizori");
+        System.out.println("\n5. Afisare depozit dintr-o locatie (filtrare dupa tara/oras/localitate");
+        System.out.println("\n6. Afisare depozitele unui magazin");
         System.out.println("\n7. Calculare stoc piesa dintr-un depozit");
         System.out.println("\n8. Calculare nr total de produse in stoc dintr-un depozit");
         System.out.println("\n9. Iesire");
@@ -276,6 +276,10 @@ public class Meniu {
                             break;
                         }
                     }
+                    break;
+                }
+                case 5: {
+                    Servicii.cautareDepozit(dep);
                     break;
                 }
 
