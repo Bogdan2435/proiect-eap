@@ -4,13 +4,18 @@ import Locatii.*;
 import Persoane.*;
 import Produse.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Vector;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
+
+        // ------------------------------------------------------
+        // --------------------ADAUGARE DATE MANUAL -------------
+        // ------------------------------------------------------
 
         Vector<Locatie> locatii= new Vector<Locatie>();
         Vector<Persoana> persoane = new Vector<Persoana>();
@@ -87,6 +92,16 @@ public class Main {
         Depozit d1 = new Depozit(l1.getTara(), l1.getJudet(), l1.getLocalitate(), l1.getStrada(), l1.getNumar(), "Depozit 1", 2100, a1, listaCat1, listaCantitati1, "depozit distributie");
         Depozit d2 = new Depozit(l2.getTara(), l2.getJudet(), l2.getLocalitate(), l2.getStrada(), l2.getNumar(), "Depozit 2", 2700, a2, listaCat2, listaCantitati2, "depozit");
 
+        HashMap<String, Depozit> listaDepozite1 = new HashMap<String, Depozit>();
+        listaDepozite1.put(d1.getNumeDepozit(), d1);
+
+        HashMap<String, Depozit> listaDepozite2 = new HashMap<String, Depozit>();
+        listaDepozite2.put(d1.getNumeDepozit(), d1);
+        listaDepozite2.put(d2.getNumeDepozit(), d2);
+
+        Magazin m1 = new Magazin(l1.getTara(), l1.getJudet(), l1.getLocalitate(), l1.getStrada(), l1.getNumar(), "m1",listaDepozite1, a2);
+        Magazin m2 = new Magazin(l2.getTara(), l2.getJudet(), l2.getLocalitate(), l2.getStrada(), l2.getNumar(), "m2",listaDepozite2, a1);
+
         locatii.add(l1);
         locatii.add(l2);
         locatii.add(l3);
@@ -123,6 +138,12 @@ public class Main {
 
         depozite.add(d1);
         depozite.add(d2);
+
+        magazine.add(m1);
+        magazine.add(m2);
+        // ------------------------------------------------------
+        // --------------FINAL ADAUGARE DATE MANUAL--------------
+        // ------------------------------------------------------
 
         Servicii serv = new Servicii();
         Meniu meniu = new Meniu();

@@ -4,9 +4,13 @@ import Locatii.*;
 import Persoane.*;
 import Produse.*;
 
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.Vector;
+import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
+
+import java.util.Map.Entry;
 
 public class Servicii {
 
@@ -585,7 +589,7 @@ public class Servicii {
     public static void stocPiesaMagazin(Vector<Magazin> mag){
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Stocul caruiei piese vrei sa il calculezi?");
+        System.out.println("Stocul carui produs vrei sa il calculezi? (numele produsului");
         String p = scanner.nextLine();
 
         System.out.println("Stocul pentru care magazin doresti sa il vezi?");
@@ -624,5 +628,125 @@ public class Servicii {
             i = i + 1;
         }
         System.out.println(cant);
+    }
+
+    public static List<Integer> afisareStocuriDepozit(Depozit depozit){
+        Collection stoc;
+        stoc = depozit.getListaCantitati().values();
+        List <Integer> stocSortat = new ArrayList<Integer>(stoc);
+        Collections.sort(stocSortat);
+        return stocSortat;
+    }
+
+    public static void citireCsv(Vector<Persoana> persoane, Vector<Categorie> categorii, Vector<Locatie> locatii, Vector<Produs> produse) {
+        try {
+            File fisierPersoana = new File("src/Services/DateCSV/ListaPersoane.csv");
+            Scanner scanner = new Scanner(fisierPersoana);
+            if(scanner.hasNextLine())
+                scanner.nextLine();
+            while(scanner.hasNextLine()){
+                String data = scanner.nextLine();
+                String[] arg_of_Data = data.split(",");
+                Persoana pers = new Persoana();
+                pers.setNumeFamilie(arg_of_Data[0]);
+                pers.setPrenume(arg_of_Data[1]);
+                pers.setCnp(arg_of_Data[2]);
+                pers.setVarsta(Integer.parseInt(arg_of_Data[3]));
+                persoane.add(pers);
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Fisierul Csv nu exista");
+            e.printStackTrace();
+        }
+
+        try {
+            File fisierCategorii = new File("src/Services/DateCSV/ListaCategorii.csv");
+            Scanner scanner = new Scanner(fisierCategorii);
+            if(scanner.hasNextLine())
+                scanner.nextLine();
+            while(scanner.hasNextLine()) {
+                String data = scanner.nextLine();
+                String[] arg_of_Data = data.split(",");
+                Categorie cat = new Categorie(arg_of_Data[0], arg_of_Data[1]);
+                categorii.add(cat);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Fisierul Csv nu exista");
+            e.printStackTrace();
+        }
+
+        try {
+            File fisierLocatii = new File("src/Services/DateCSV/ListaLocatii.csv");
+            Scanner scanner = new Scanner(fisierLocatii);
+            if(scanner.hasNextLine())
+                scanner.nextLine();
+            while(scanner.hasNextLine()) {
+                String data = scanner.nextLine();
+                String[] arg_of_Data = data.split(",");
+                Locatie loc = new Locatie(arg_of_Data[0], arg_of_Data[1], arg_of_Data[2], arg_of_Data[3], arg_of_Data[4]);
+                locatii.add(loc);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Fisierul Csv nu exista");
+            e.printStackTrace();
+        }
+
+        try {
+            File fisierProduse = new File("src/Services/DateCSV/ListaProduse.csv");
+            Scanner scanner = new Scanner(fisierProduse);
+            if(scanner.hasNextLine())
+                scanner.nextLine();
+            while(scanner.hasNextLine()) {
+                String data = scanner.nextLine();
+                String[] arg_of_Data = data.split(",");
+                Produs produs = new Produs(arg_of_Data[0], arg_of_Data[1], arg_of_Data[2], Integer.parseInt(arg_of_Data[3]));
+                produse.add(produs);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Fisierul Csv nu exista");
+            e.printStackTrace();
+        }
+    }
+
+    public static void creareAudit(String actiune, String timestamp) throws IOException {
+        FileWriter writer = new FileWriter("src/Services/DateCSV/Audit.csv", true);
+        writer.write( "\n"+actiune+" realizata la data de: " + timestamp);
+        writer.close();
+    }
+
+    public static void scriereCSV(Vector<Persoana> persoane, Vector<Categorie> categorii, Vector<Locatie> locatii, Vector<Produs> produse) throws IOException {
+
+        // Adaugare date pt Persoane
+        FileWriter writePersoana = new FileWriter("src/Services/DateCSV/AfisajPersoane.csv");
+        writePersoana.write("NumeFamilie,Prenume,CNP,Varsta\n");
+        for(Persoana pers : persoane){
+            writePersoana.write(pers.getNumeFamilie() + "," + pers.getPrenume() + "," + pers.getCnp() + "," + pers.getVarsta() + "\n");
+        }
+        writePersoana.close();
+
+        // Adaugare date pt Categorii
+        FileWriter writeCategorie = new FileWriter("src/Services/DateCSV/AfisajCategorii.csv");
+        writeCategorie.write("DenumireCategorie,Descriere\n");
+        for(Categorie cat: categorii){
+            writeCategorie.write(cat.getDenumireCategorie() + "," + cat.getDescriere() + "\n");
+        }
+        writeCategorie.close();
+
+        // Adaugare date pt Locatii
+        FileWriter writeLocatie = new FileWriter("src/Services/DateCSV/AfisajLocatii.csv");
+        writeLocatie.write("Tara,Judet,Localitate,Strada,Numar\n");
+        for(Locatie loc : locatii){
+            writeLocatie.write(loc.getTara() + "," + loc.getJudet() + "," + loc.getLocalitate() + "," + loc.getStrada() + "," + loc.getNumar() + "\n");
+        }
+        writeLocatie.close();
+
+        // Adaugare date pt Produse
+        FileWriter writeProdus = new FileWriter("src/Services/DateCSV/AfisajProduse.csv");
+        writeProdus.write("DenumireCategorie,DescriereCategorie,DenumireProdus,Pret");
+        for(Produs prod : produse) {
+            writeProdus.write(prod.getDenumireCategorie() + "," + prod.getDescriere() + "," + prod.getDenumireProdus() + "," + prod.getPret() + "\n");
+        }
+        writeProdus.close();
     }
 }
