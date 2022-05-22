@@ -876,4 +876,112 @@ public class Servicii {
         }
     }
 
+    public static void modificareBd(Connection conexiune, Vector<Persoana> persoane, Vector<Categorie> categorii, Vector<Locatie> locatii, Vector<Produs> produse) throws SQLException, InterruptedException {
+        Scanner scanner = new Scanner(System.in);
+        String clasa;
+        System.out.println("In care tabel vrei sa modifici date?\n");
+        System.out.println("Persoane | Categorii | Locatii | Produse");
+        clasa = scanner.nextLine();
+        switch (clasa) {
+            case "Persoane": {
+                System.out.println("Acesta este tabelul in care editezi in functie de identificatorul primar: \n");
+                System.out.println("id, Nume Familie, Prenume, Cnp, Varsta");
+                String comandaAf = "SELECT * FROM persoana";
+                Statement statAf = conexiune.createStatement();
+                ResultSet resultAf = statAf.executeQuery(comandaAf);
+                while(resultAf.next()){
+                    System.out.println(resultAf.getString("id_persoana") + "," + resultAf.getString("nume_familie") + "," + resultAf.getString("prenume") + "," + resultAf.getInt("varsta"));
+                }
+                System.out.println("id-ul persoanei pe care doresti sa o modifici");
+                Integer idPers = scanner.nextInt();
+                System.out.println("Introdu datele");
+                System.out.println("Nume familie");
+                String nf = scanner.next();
+                System.out.println("Prenume");
+                String prenume = scanner.next();
+                System.out.println("CNP");
+                String cnp = scanner.next();
+                System.out.println("Varsta");
+                Integer var = scanner.nextInt();
+                String comanda = "UPDATE persoana SET nume_familie=?, prenume=?, cnp=?, varsta=? WHERE id_persoana=?";
+                PreparedStatement stat = conexiune.prepareStatement(comanda);
+                stat.setString(1, nf);
+                stat.setString(2, prenume);
+                stat.setString(3, cnp);
+                stat.setInt(4, var);
+                stat.setInt(5, idPers);
+                stat.executeUpdate();
+                break;
+            }
+            case "Categorii": {
+                System.out.println("Acesta este tabelul in care editezi in functie de identificatorul primar: \n");
+                System.out.println("id, Denumire Cat, Descriere");
+                String comandaAf = "SELECT * FROM categorie";
+                Statement statAf = conexiune.createStatement();
+                ResultSet resultAf = statAf.executeQuery(comandaAf);
+                while(resultAf.next()){
+                    System.out.println(resultAf.getString("id_categorie") + "," + resultAf.getString("denumire_categorie") + "," + resultAf.getString("descriere"));
+                }
+                System.out.println("id-ul categoriei pe care doresti sa o modifici");
+                Integer idCat = scanner.nextInt();
+                System.out.println("Introdu datele");
+                System.out.println("Denumirea Cat:");
+                String denumireCat = scanner.next();
+                System.out.println("Descriere");
+                String desc = scanner.next();
+                String comanda = "UPDATE categorie SET denumire_categorie=?, descriere=? WHERE id_categorie=?";
+                PreparedStatement stat = conexiune.prepareStatement(comanda);
+                stat.setString(1,denumireCat);
+                stat.setString(2,desc);
+                stat.setInt(3, idCat);
+                stat.executeUpdate();
+                break;
+            }
+        }
+    }
+
+    public static void stergereBd (Connection conexiune, Vector<Persoana> persoane, Vector<Categorie> categorii, Vector<Locatie> locatii, Vector<Produs> produse) throws SQLException, InterruptedException {
+        Scanner scanner = new Scanner(System.in);
+        String clasa;
+        System.out.println("In care tabel vrei sa modifici date?\n");
+        System.out.println("Persoane | Categorii | Locatii | Produse");
+        clasa = scanner.nextLine();
+        switch (clasa) {
+            case "Persoane":{
+                System.out.println("Acesta este tabelul in care stergi in functie de identificatorul primar: \n");
+                System.out.println("id, Nume Familie, Prenume, Cnp, Varsta");
+                String comandaAf = "SELECT * FROM persoana";
+                Statement statAf = conexiune.createStatement();
+                ResultSet resultAf = statAf.executeQuery(comandaAf);
+                while(resultAf.next()){
+                    System.out.println(resultAf.getString("id_persoana") + "," + resultAf.getString("nume_familie") + "," + resultAf.getString("prenume") + "," + resultAf.getInt("varsta"));
+                }
+                System.out.println("id-ul persoanei pe care doresti sa o stergi");
+                Integer idPers = scanner.nextInt();
+                String comanda = "DELETE FROM persoana WHERE id_persoana=?";
+                PreparedStatement stat = conexiune.prepareStatement(comanda);
+                stat.setInt(1,idPers);
+                stat.executeUpdate();
+                break;
+            }
+            case "Categorii": {
+                System.out.println("Acesta este tabelul in care stergi in functie de identificatorul primar: \n");
+                System.out.println("id, Denumire Cat, Descriere");
+                String comandaAf = "SELECT * FROM categorie";
+                Statement statAf = conexiune.createStatement();
+                ResultSet resultAf = statAf.executeQuery(comandaAf);
+                while(resultAf.next()){
+                    System.out.println(resultAf.getString("id_categorie") + "," + resultAf.getString("denumire_categorie") + "," + resultAf.getString("descriere"));
+                }
+                System.out.println("id-ul categoriei pe care doresti sa o stergi");
+                Integer idCat = scanner.nextInt();
+                String comanda = "DELETE FROM categorie WHERE id_categorie=?";
+                PreparedStatement stat = conexiune.prepareStatement(comanda);
+                stat.setInt(1,idCat);
+                stat.executeUpdate();
+                break;
+            }
+        }
+    }
+
 }

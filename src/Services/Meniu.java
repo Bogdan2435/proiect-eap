@@ -584,9 +584,9 @@ public class Meniu {
             System.out.println("\n4. Afisare");
             System.out.println("\n5. Inserare in BD");
             System.out.println("\n6. Modificare doar in aplicatie");
-//            System.out.println("\n7. Modificare informatii in BD");
+            System.out.println("\n7. Modificare informatii in BD");
             System.out.println("\n8. Stergere");
-//            System.out.println("\n9. Stergere in BD");
+            System.out.println("\n9. Stergere in BD");
             System.out.println("\n10. Afisare depozit dintr-o locatie (filtrare dupa tara/oras/localitate");
             System.out.println("\n11. Afisare depozitele unui magazin");
             System.out.println("\n12. Calculare stoc piesa dintr-un magazin");
@@ -829,7 +829,14 @@ public class Meniu {
                         Servicii.creareAudit("Modificare", timp);
                         break;
                     }
-
+                    case 7: {
+                        Servicii.modificareBd(DbConnection.getConnection(), pers, cat, loc, prod);
+                        Date timestamp = new Date();
+                        SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                        String timp = data.format(timestamp);
+                        Servicii.creareAudit("Modificare Date in BD MySql", timp);
+                        break;
+                    }
                     case 8: { // Cazul 4 adica atunci cand doresc stergerea datelor
                         String clasa;
                         System.out.println("Pe care dintre clase vrei sa lucrezi?");
@@ -891,7 +898,14 @@ public class Meniu {
                         Servicii.creareAudit("Stergere", timp);
                         break;
                     }
-
+                    case 9: {
+                        Servicii.stergereBd(DbConnection.getConnection(), pers, cat, loc, prod);
+                        Date timestamp = new Date();
+                        SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                        String timp = data.format(timestamp);
+                        Servicii.creareAudit("Stergere Date in BD MySql", timp);
+                        break;
+                    }
                     case 10: {
                         Servicii.cautareDepozit(dep);
                         Date timestamp = new Date();
