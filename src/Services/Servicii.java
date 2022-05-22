@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.*;
 import java.util.*;
 
 import java.util.Map.Entry;
@@ -749,4 +750,130 @@ public class Servicii {
         }
         writeProdus.close();
     }
+
+    public static void citireBd(Connection conexiune, Vector<Persoana> persoane, Vector<Categorie> categorii, Vector<Locatie> locatii, Vector<Produs> produse) throws SQLException, InterruptedException {
+        Scanner scanner = new Scanner(System.in);
+        String clasa;
+        System.out.println("Din care tabel vrei sa citesti date?\n");
+        System.out.println("Persoane | Categorii | Locatii | Produse");
+        clasa = scanner.nextLine();
+        switch(clasa) {
+            case "Persoane": {
+                String comanda = "SELECT * FROM persoana";
+                Statement statement = conexiune.createStatement();
+                ResultSet result = statement.executeQuery(comanda);
+                while(result.next()){
+                    Persoana p = new Persoana();
+                    p.setNumeFamilie(result.getString("nume_familie"));
+                    p.setPrenume(result.getString("prenume"));
+                    p.setCnp(result.getString("cnp"));
+                    p.setVarsta(result.getInt("varsta"));
+                    persoane.add(p);
+                }
+                break;
+            }
+            case "Categorii": {
+                String comanda = "SELECT * FROM categorie";
+                Statement statement = conexiune.createStatement();
+                ResultSet result = statement.executeQuery(comanda);
+                while(result.next()){
+                    Categorie c = new Categorie();
+                    c.setDenumireCategorie(result.getString("denumire_categorie"));
+                    c.setDescriere(result.getString("descriere"));
+                    categorii.add(c);
+                }
+                break;
+            }
+            case "Locatii": {
+                String comanda = "SELECT * FROM locatie";
+                Statement statement = conexiune.createStatement();
+                ResultSet result = statement.executeQuery(comanda);
+                while(result.next()){
+                    Locatie l = new Locatie();
+                    l.setTara(result.getString("tara"));
+                    l.setJudet(result.getString("judet"));
+                    l.setLocalitate(result.getString("localitate"));
+                    l.setStrada(result.getString("strada"));
+                    l.setNumar(result.getString("numar"));
+                    locatii.add(l);
+                }
+            }
+            case "Produse": {
+                String comanda = "SELECT * FROM produs";
+                Statement statement = conexiune.createStatement();
+                ResultSet result = statement.executeQuery(comanda);
+                while(result.next()) {
+                    Produs pr = new Produs();
+                    pr.setDenumireCategorie(result.getString("denumire_categorie"));
+                    pr.setDescriere(result.getString("descriere"));
+                    pr.setDenumireProdus(result.getString("denumire_produs"));
+                    pr.setPret(result.getInt("pret"));
+                    produse.add(pr);
+                }
+            }
+            default: {
+                System.out.println("Tabelul ales nu este disponibil\n!");
+                Thread.sleep(2000);
+                citireBd(conexiune, persoane, categorii, locatii, produse);
+            }
+        }
+    }
+
+    public static void inserareBd(Connection conexiune, Vector<Persoana> persoane, Vector<Categorie> categorii, Vector<Locatie> locatii, Vector<Produs> produse) throws SQLException, InterruptedException {
+        Scanner scanner = new Scanner(System.in);
+        String clasa;
+        System.out.println("In care tabel vrei sa adaugi date?\n");
+        System.out.println("Persoane | Categorii | Locatii | Produse");
+        clasa = scanner.nextLine();
+        switch (clasa){
+            case "Persoane": {
+                System.out.println("Care persoana vrei sa o adaugi? (pozitia ei)");
+                Integer indPers = scanner.nextInt();
+                String comanda = "INSERT INTO persoana (nume_familie, prenume, cnp, varsta) VALUES (?, ?, ?, ?)";
+                PreparedStatement stat = conexiune.prepareStatement(comanda);
+                stat.setString(1, persoane.get(indPers).getNumeFamilie());
+                stat.setString(2, persoane.get(indPers).getPrenume());
+                stat.setString(3, persoane.get(indPers).getCnp());
+                stat.setInt(4, persoane.get(indPers).getVarsta());
+                stat.executeUpdate();
+                break;
+            }
+            case "Categorii": {
+                System.out.println("Care categorie vrei sa o adaugi? (pozitia ei)");
+                Integer indCat = scanner.nextInt();
+                String comanda = "INSERT INTO `categorie` (`denumire_categorie`, `descirere`) VALUES (?, ?)";
+                PreparedStatement stat = conexiune.prepareStatement(comanda);
+                stat.setString(1, categorii.get(indCat).getDenumireCategorie());
+                stat.setString(2, categorii.get(indCat).getDescriere());
+                stat.executeUpdate();
+                break;
+            }
+            case "Locatii": {
+                System.out.println("Care locatie vrei sa o adaugi? (pozitia ei)");
+                Integer indLoc = scanner.nextInt();
+                String comanda = "INSERT INTO `locatie` (`tara`, `judet`, `localitate`, `strada`, `numar`) VALUES (?, ?, ?, ?, ?)";
+                PreparedStatement stat = conexiune.prepareStatement(comanda);
+                stat.setString(1, locatii.get(indLoc).getTara());
+                stat.setString(2, locatii.get(indLoc).getJudet());
+                stat.setString(3, locatii.get(indLoc).getLocalitate());
+                stat.setString(4, locatii.get(indLoc).getStrada());
+                stat.setString(5, locatii.get(indLoc).getNumar());
+                stat.executeUpdate();
+                break;
+            }
+            case "Produse": {
+                System.out.println("Care produs vrei sa il adaugi? (pozitia lui)");
+                Integer indPr = scanner.nextInt();
+                String comanda = "INSERT INTO `produs` (`denumire_categorie`, `descriere`, `denumire_produs`, `pret`) VALUES (?, ?, ?, ?)";
+                PreparedStatement stat = conexiune.prepareStatement(comanda);
+                stat.setString(1, produse.get(indPr).getDenumireCategorie());
+                stat.setString(2, produse.get(indPr).getDescriere());
+                stat.setString(3, produse.get(indPr).getDenumireProdus());
+                stat.setInt(4, produse.get(indPr).getPret());
+                break;
+            }
+
+        }
+    }
+
 }

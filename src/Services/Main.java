@@ -5,12 +5,13 @@ import Persoane.*;
 import Produse.*;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Vector;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SQLException, InterruptedException {
         Scanner scanner = new Scanner(System.in);
 
         // ------------------------------------------------------
