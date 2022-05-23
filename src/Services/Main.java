@@ -27,7 +27,7 @@ public class Main {
         Vector<Furnizor> furnizori = new Vector<Furnizor>();
         Vector<Magazin> magazine = new Vector<Magazin>();
 
-        Locatie l1 = new Locatie("Ro", "Bucuresti", "S4", "Viorele", "51");
+        Locatie l1 = new Locatie("Ro", "Bucuresti", "S4", "Viorele", "53");
         Locatie l2 = new Locatie("Ro", "Bucuresti", "S3", "Sarii", "65");
         Locatie l3 = new Locatie("Bg", "Ruse", "Ruse", "Mdasi", "53");
 
