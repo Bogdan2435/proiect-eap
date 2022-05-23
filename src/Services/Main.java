@@ -14,10 +14,6 @@ public class Main {
     public static void main(String[] args) throws IOException, SQLException, InterruptedException {
         Scanner scanner = new Scanner(System.in);
 
-        // ------------------------------------------------------
-        // --------------------ADAUGARE DATE MANUAL -------------
-        // ------------------------------------------------------
-
         Vector<Locatie> locatii= new Vector<Locatie>();
         Vector<Persoana> persoane = new Vector<Persoana>();
         Vector<Angajat> angajati = new Vector<Angajat>();
@@ -26,6 +22,10 @@ public class Main {
         Vector<Depozit> depozite = new Vector<Depozit>();
         Vector<Furnizor> furnizori = new Vector<Furnizor>();
         Vector<Magazin> magazine = new Vector<Magazin>();
+
+        // ------------------------------------------------------
+        // --------------------ADAUGARE DATE MANUAL -------------
+        // ------------------------------------------------------
 
         Locatie l1 = new Locatie("Ro", "Bucuresti", "S4", "Viorele", "53");
         Locatie l2 = new Locatie("Ro", "Bucuresti", "S3", "Sarii", "65");

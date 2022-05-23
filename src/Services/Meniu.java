@@ -384,7 +384,8 @@ public class Meniu {
             System.out.println("\n7. Afisare stocurile sortate ale unui depozit");
             System.out.println("\n8. Update fisiere CSV afisare.");
             System.out.println("\n9. Adaugare date local.");
-            System.out.println("\n10. Iesire");
+            System.out.println("\n10. Afisare");
+            System.out.println("\n11. Iesire");
             int opt = 0;
             while (opt >= 0 & opt < 10) {
                 System.out.println("Ce doresti sa faci?");
@@ -647,7 +648,68 @@ public class Meniu {
                         Servicii.creareAudit("Citire", timp);
                         break;
                     }
-                    case 10: {
+                    case 10: { // Cazul 2 adica atunci cand vreau sa afisez datele
+                        String clasa;
+                        System.out.println("Pe care dintre clase vrei sa lucrezi?");
+                        System.out.println("Locatie | Furnizor | Depozit | Magazin | Persoane | Angajati | Categorii | Produse");
+                        clasa = scanner.next();
+                        switch (clasa) {
+                            case "Locatie": {
+                                for (Locatie l : loc) {
+                                    Servicii.afisareLocatie(l);
+                                }
+                                break;
+                            }
+                            case "Furnizor": {
+                                for (Furnizor f : furn) {
+                                    Servicii.afisareFurnizor(f);
+                                }
+                                break;
+                            }
+                            case "Depozit": {
+                                for (Depozit d : dep) {
+                                    Servicii.afisareDepozit(d);
+                                }
+                                break;
+                            }
+                            case "Magazin": {
+                                for (Magazin m : mag) {
+                                    Servicii.afisareMagazin(m);
+                                }
+                                break;
+                            }
+                            case "Persoane": {
+                                for (Persoana p : pers) {
+                                    Servicii.afisarePersoana(p);
+                                }
+                                break;
+                            }
+                            case "Angajati": {
+                                for (Angajat a : ang) {
+                                    Servicii.afisareAngajat(a);
+                                }
+                                break;
+                            }
+                            case "Categorii": {
+                                for (Categorie c : cat) {
+                                    Servicii.afisareCategorie(c);
+                                }
+                                break;
+                            }
+                            case "Produse": {
+                                for (Produs pr : prod) {
+                                    Servicii.afisareProdus(pr);
+                                }
+                                break;
+                            }
+                        }
+                        Date timestamp = new Date();
+                        SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                        String timp = data.format(timestamp);
+                        Servicii.creareAudit("Afisare", timp);
+                        break;
+                    }
+                    case 11: {
                         Date timestamp = new Date();
                         SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                         String timp = data.format(timestamp);
@@ -671,7 +733,7 @@ public class Meniu {
             System.out.println("\n5. Inserare in BD");
             System.out.println("\n6. Modificare doar in aplicatie");
             System.out.println("\n7. Modificare informatii in BD");
-            System.out.println("\n8. Stergere");
+            System.out.println("\n8. Stergere doar in aplicatie");
             System.out.println("\n9. Stergere in BD");
             System.out.println("\n10. Afisare depozit dintr-o locatie (filtrare dupa tara/oras/localitate");
             System.out.println("\n11. Afisare depozitele unui magazin");
